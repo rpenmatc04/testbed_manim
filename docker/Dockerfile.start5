@@ -1,0 +1,17 @@
+FROM alpine:3.19
+
+ENV PYTHONUNBUFFERED=1
+
+# Alpine image lacks the GL stack required by ManimGL
+RUN apk add --no-cache \
+        python3 \
+        py3-pip \
+        ffmpeg
+
+WORKDIR /code
+COPY . /code
+
+# Installs only numpy and ignores the rest of the requirements
+RUN pip install numpy
+
+CMD ["pytest", "-q"]

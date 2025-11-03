@@ -1,6 +1,9 @@
 import pkg_resources
 
-__version__ = pkg_resources.get_distribution("manimgl").version
+try:  # pragma: no cover - executed during import
+    __version__ = pkg_resources.get_distribution("manimgl").version
+except pkg_resources.DistributionNotFound:  # pragma: no cover - fallback for editable checkouts
+    __version__ = "0.0.0"
 
 from typing import TYPE_CHECKING
 
