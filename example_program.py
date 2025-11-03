@@ -1,11 +1,8 @@
 """Utility helpers and smoke checks for validating the ManimGL setup."""
 from __future__ import annotations
 
-import os
 from importlib import metadata
 from typing import Type
-
-os.environ.setdefault("PYGLET_HEADLESS", "true")
 
 from manimlib import config
 from manimlib.mobject.geometry import Square
