@@ -1,0 +1,21 @@
+FROM python:3.10-slim
+
+ENV PYTHONUNBUFFERED=1
+
+# Missing ffmpeg and several X11/OpenGL dependencies on purpose
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        build-essential \
+        pkg-config \
+        git \
+        libcairo2-dev \
+        libpango1.0-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+COPY . /app
+
+RUN pip install -r requirements.txt \
+    && pip install -e .
+
+CMD ["pytest", "-q"]

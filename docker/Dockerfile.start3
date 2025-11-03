@@ -1,0 +1,16 @@
+FROM python:3.12-slim
+
+ENV PYTHONUNBUFFERED=1
+
+# Only pulls ffmpeg while omitting headers and GL dependencies
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends ffmpeg \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /opt/project
+COPY . /opt/project
+
+# Installs the community edition instead of the local source tree
+RUN pip install manim
+
+CMD ["pytest", "-q"]
